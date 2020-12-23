@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nibblr_app/ui/views/signup/signup_viewmodel.dart';
 import 'package:nibblr_app/ui/widgets/gradient_background.dart';
 import 'package:nibblr_app/util/config/validators.dart';
 import 'package:nibblr_app/util/constants/sizes.dart';
 import 'package:stacked/stacked.dart';
 
-import 'login_viewmodel.dart';
 
-class LoginView extends StatelessWidget {
+class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.nonReactive(
+    return ViewModelBuilder<SignupViewModel>.nonReactive(
         onModelReady: (model) => model.initialise(),
         builder: (context, model, child) {
           return Scaffold(
@@ -39,21 +39,8 @@ class LoginView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
-                              TextFormField(
-                                style: _inputStyle(),
-                                controller: model.nameController,
-                                decoration: InputDecoration(
-                                    suffixIcon: Icon(
-                                      Icons.account_circle,
-                                      color: Get.theme.primaryColor,
-                                    ),
-                                    labelText: 'Naam'),
-                                validator: buildEmailValidator(),
-                              ),
-                              SizedBox(
-                                height: CustomSize.medium,
-                              ),
-                              TextFormField(
+                              TextFormField
+                                (
                                 style: _inputStyle(),
                                 controller: model.emailController,
                                 decoration: InputDecoration(
@@ -81,9 +68,9 @@ class LoginView extends StatelessWidget {
                               ),
                               SizedBox(height: CustomSize.large + CustomSize.medium),
                               RaisedButton(
-                                child: Text('Inloggen'),
+                                child: Text('Maak Account'),
                                 onPressed: () {
-                                  model.createUser(
+                                  model.loginUser(
                                       email: model.emailController.text,
                                       password: model.passwordController.text,
                                       name: model.nameController.text);
@@ -94,10 +81,10 @@ class LoginView extends StatelessWidget {
                               ),
                               FlatButton(
                                   child: Text(
-                                    'Maak Account',
+                                    'Inloggen',
                                     style: Get.textTheme.button.copyWith(color: Get.theme.primaryColor),
                                   ),
-                                  onPressed: model.goToInloggen)
+                                  onPressed: model.goToSignup)
                             ],
                           ),
                         ),
@@ -109,7 +96,7 @@ class LoginView extends StatelessWidget {
             ),
           );
         },
-        viewModelBuilder: () => LoginViewModel());
+        viewModelBuilder: () => SignupViewModel());
   }
 
   TextStyle _inputStyle() => Get.textTheme.subtitle1.copyWith(color: Get.theme.primaryColor);

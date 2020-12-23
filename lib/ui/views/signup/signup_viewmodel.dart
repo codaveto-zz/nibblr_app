@@ -5,8 +5,8 @@ import 'package:nibblr_app/services/log/logger_service.dart';
 import 'package:nibblr_app/util/injection/locator.dart';
 import 'package:stacked/stacked.dart';
 
-class LoginViewModel extends BaseViewModel {
-  final _log = locator<LoggerService>().getLogger('LoginViewModel');
+class SignupViewModel extends BaseViewModel {
+  final _log = locator<LoggerService>().getLogger('SignupViewModel');
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
@@ -28,7 +28,7 @@ class LoginViewModel extends BaseViewModel {
 
   // --------------- USER LOGIC --------------- USER LOGIC --------------- USER LOGIC --------------- \\
 
-  void createUser({String email, String password, String name}) {
+  void loginUser({String email, String password, String name}) {
 
   }
 
@@ -37,7 +37,7 @@ class LoginViewModel extends BaseViewModel {
   GlobalKey<FormState> get formKey => _formKey;
 
 
-  void goToInloggen() {
-    Get.offAndToNamed(Routes.signupView);
+  void goToSignup() {
+    Get.offAndToNamed(Routes.loginView);
   }
 }

@@ -1,13 +1,11 @@
 abstract class CustomSize {
 
   // paddings
-  static const double edgePadding = 32.0;
-
-  // distances
-  static const double formDistance = 16;
-
-  // sizes
-  static const double iconSize = 32;
+  static const double xl = 64.0;
+  static const double large = 32.0;
+  static const double medium = 16.0;
+  static const double small = 8.0;
+  static const double xs = 4.0;
 
   // animations
   static const int defaultAnimationDuration = 400;
