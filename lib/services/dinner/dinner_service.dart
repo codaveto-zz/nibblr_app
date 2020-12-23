@@ -13,12 +13,17 @@ class DinnerService {
   final _endpoint = '/dinner';
 
   Future<List<Dinner>> getUpcomingDinners() async {
-    DinnerList dinnerList;
+    List<Dinner> dinnerList = [];
     final CustomResponse response = await _httpService.get(path: _endpoint);
     if (response.statusCode == 200) {
-      dinnerList = DinnerList.fromJson({'carwashList': response.list});
+        try {
+          response.list.forEach((element) {dinnerList.add(Dinner.fromJson(element));});
+        } catch (e) {
+          print(e);
+        }
     }
-    return dinnerList.dinnerList;
+    dinnerList.sort((a, b) => a.endTime.compareTo(b.startTime));
+    return dinnerList;
   }
 
   Future<bool> create({String title, String description, int maxGuests, DateTime startTime, DateTime endTime}) async {

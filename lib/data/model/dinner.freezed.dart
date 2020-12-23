@@ -18,7 +18,7 @@ class _$DinnerTearOff {
 
 // ignore: unused_element
   _Dinner call(String title, String description, int maxGuests,
-      DateTime startTime, DateTime endTime, String userId, int id) {
+      DateTime startTime, DateTime endTime, int userId, int id) {
     return _Dinner(
       title,
       description,
@@ -47,7 +47,7 @@ mixin _$Dinner {
   int get maxGuests;
   DateTime get startTime;
   DateTime get endTime;
-  String get userId;
+  int get userId;
   int get id;
 
   Map<String, dynamic> toJson();
@@ -64,7 +64,7 @@ abstract class $DinnerCopyWith<$Res> {
       int maxGuests,
       DateTime startTime,
       DateTime endTime,
-      String userId,
+      int userId,
       int id});
 }
 
@@ -94,7 +94,7 @@ class _$DinnerCopyWithImpl<$Res> implements $DinnerCopyWith<$Res> {
       startTime:
           startTime == freezed ? _value.startTime : startTime as DateTime,
       endTime: endTime == freezed ? _value.endTime : endTime as DateTime,
-      userId: userId == freezed ? _value.userId : userId as String,
+      userId: userId == freezed ? _value.userId : userId as int,
       id: id == freezed ? _value.id : id as int,
     ));
   }
@@ -111,7 +111,7 @@ abstract class _$DinnerCopyWith<$Res> implements $DinnerCopyWith<$Res> {
       int maxGuests,
       DateTime startTime,
       DateTime endTime,
-      String userId,
+      int userId,
       int id});
 }
 
@@ -140,7 +140,7 @@ class __$DinnerCopyWithImpl<$Res> extends _$DinnerCopyWithImpl<$Res>
       maxGuests == freezed ? _value.maxGuests : maxGuests as int,
       startTime == freezed ? _value.startTime : startTime as DateTime,
       endTime == freezed ? _value.endTime : endTime as DateTime,
-      userId == freezed ? _value.userId : userId as String,
+      userId == freezed ? _value.userId : userId as int,
       id == freezed ? _value.id : id as int,
     ));
   }
@@ -174,7 +174,7 @@ class _$_Dinner implements _Dinner {
   @override
   final DateTime endTime;
   @override
-  final String userId;
+  final int userId;
   @override
   final int id;
 
@@ -230,7 +230,7 @@ class _$_Dinner implements _Dinner {
 
 abstract class _Dinner implements Dinner {
   const factory _Dinner(String title, String description, int maxGuests,
-      DateTime startTime, DateTime endTime, String userId, int id) = _$_Dinner;
+      DateTime startTime, DateTime endTime, int userId, int id) = _$_Dinner;
 
   factory _Dinner.fromJson(Map<String, dynamic> json) = _$_Dinner.fromJson;
 
@@ -245,7 +245,7 @@ abstract class _Dinner implements Dinner {
   @override
   DateTime get endTime;
   @override
-  String get userId;
+  int get userId;
   @override
   int get id;
   @override

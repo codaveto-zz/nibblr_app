@@ -8,7 +8,7 @@ part 'dinner.g.dart';
 abstract class Dinner with _$Dinner{
   @JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
   const factory Dinner(
-    String title, String description, int maxGuests, DateTime startTime, DateTime endTime, String userId, int id,
+    String title, String description, int maxGuests, DateTime startTime, DateTime endTime, int userId, int id,
   ) = _Dinner;
   factory Dinner.fromJson(Map<String, dynamic> json) => _$DinnerFromJson(json);
 }

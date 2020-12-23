@@ -30,7 +30,7 @@ class HomeViewModel extends BaseViewModel {
   // --------------- DINNERS --------------- DINNERS --------------- DINNERS --------------- \\
 
   void goToDinnerView() {
-    Get.offAndToNamed(Routes.addDinnerView);
+    Get.offNamed(Routes.addDinnerView);
   }
 
   void dinnerTapped() {}

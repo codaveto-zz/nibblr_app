@@ -17,7 +17,7 @@ _$_Dinner _$_$_DinnerFromJson(Map<String, dynamic> json) {
     json['end_time'] == null
         ? null
         : DateTime.parse(json['end_time'] as String),
-    json['user_id'] as String,
+    json['user_id'] as int,
     json['id'] as int,
   );
 }

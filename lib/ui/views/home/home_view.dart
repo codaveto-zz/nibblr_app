@@ -4,6 +4,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:nibblr_app/ui/widgets/gradient_background.dart';
 import 'package:nibblr_app/util/constants/sizes.dart';
 import 'package:stacked/stacked.dart';
+import 'package:intl/intl.dart';
 
 import 'home_viewmodel.dart';
 
@@ -100,25 +101,39 @@ class HomeView extends StatelessWidget {
               isLoading: model.isBusy,
               child: SafeArea(
                 child: GradientBackground(
-                  child: ((model.dinners?.length ?? 0) > 0)
-                      ? ListView.separated(
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              behavior: HitTestBehavior.translucent,
-                              onTap: model.dinnerTapped,
-                              child: ListTile(
-                                title: Text(
-                                  'wtf',
-                                  style: Get.textTheme.subtitle2,
+                  child: (model.dinners != null && model.dinners.length > 0)
+                      ? Padding(
+                        padding: const EdgeInsets.only(top: CustomSize.medium),
+                        child: ListView.separated(
+                            itemBuilder: (context, index) {
+                              final dinner = model.dinners[index];
+                              return GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: model.dinnerTapped,
+                                child: ListTile(
+                                  title: Text(
+                                    dinner.title,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Get.textTheme.subtitle1,
+                                  ),
+                                  subtitle: Text(
+                                      dinner.description + '\n' + DateFormat('dd MMM yyyy - hh:mm').format(dinner.startTime),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Get.textTheme.subtitle2,
+                                  ),
+                                  isThreeLine: true,
+                                  dense: true,
+                                  leading: Icon(Icons.food_bank_outlined),
+                                  trailing: Icon(Icons.arrow_right),
                                 ),
-                              ),
-                            );
-                          },
-                          physics: BouncingScrollPhysics(),
-                          separatorBuilder: (context, index) {
-                            return index < model.dinners?.length ?? 0 - 1 ? Divider() : SizedBox.shrink();
-                          },
-                          itemCount: model.dinners?.length ?? 0)
+                              );
+                            },
+                            physics: BouncingScrollPhysics(),
+                            separatorBuilder: (context, index) {
+                              return index < model.dinners?.length ?? 0 - 1 ? Divider() : SizedBox.shrink();
+                            },
+                            itemCount: model.dinners?.length ?? 0),
+                      )
                       : Center(
                           child: Text(
                             'A dinner a day,\n'

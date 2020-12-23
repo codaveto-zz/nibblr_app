@@ -2,6 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nibblr_app/nav/router.dart';
 import 'package:nibblr_app/services/dinner/dinner_service.dart';
 import 'package:nibblr_app/services/log/logger_service.dart';
 import 'package:nibblr_app/util/injection/locator.dart';
@@ -33,10 +34,11 @@ class AddDinnerViewModel extends BaseViewModel {
     super.dispose();
   }
 
+  // --------------- DINNER --------------- DINNER --------------- DINNER --------------- \\
+
   Future<void> createDinner() async {
-    final dinnerService = DinnerService();
     if (_formKey.currentState.validate()) {
-      _log.d(''' VALID ''');
+    final dinnerService = DinnerService();
       final createDinnerSuccess = await runBusyFuture(dinnerService.create(
           title: _titleController.text,
           description: _descriptionController.text,
@@ -46,13 +48,22 @@ class AddDinnerViewModel extends BaseViewModel {
       await runBusyFuture(Future.delayed(Duration(seconds: 2)));
       if (createDinnerSuccess) {
         Get.snackbar('Success', 'Dinner created.');
+        _resetControllers();
         return;
       }
       notifyError(Get.find(tag: 'error'));
     }
   }
 
-  // --------------- HELPER --------------- HELPER --------------- HELPER --------------- \\
+  void _resetControllers() {
+    _titleController.clear();
+    _descriptionController.clear();
+    _maxGuestController.clear();
+    _startTimeController.clear();
+    _endTimeController.clear();
+  }
+
+  // --------------- DATE --------------- DATE --------------- DATE --------------- \\
 
   Future<void> pickStartTime() async {
     _startTime = await showDatePicker(
@@ -102,6 +113,12 @@ class AddDinnerViewModel extends BaseViewModel {
     }
   }
 
+  // --------------- NAV --------------- NAV --------------- NAV --------------- \\
+
+  void goBack() {
+    Get.offNamed(Routes.homeView);
+  }
+
 // --------------- GET & SET --------------- GET & SET --------------- GET & SET --------------- \\
   get endTime => _endTime;
 
@@ -118,4 +135,5 @@ class AddDinnerViewModel extends BaseViewModel {
   get titleController => _titleController;
 
   GlobalKey<FormState> get formKey => _formKey;
+
 }
