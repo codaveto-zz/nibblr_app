@@ -10,6 +10,7 @@ import 'package:nibblr_app/services/token/token_service.dart';
 import 'package:nibblr_app/ui/widgets/info_text_field.dart';
 import 'package:nibblr_app/util/constants/sizes.dart';
 import 'package:nibblr_app/util/injection/locator.dart';
+import 'package:nibblr_app/util/methods/notify.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -90,6 +91,10 @@ class HomeViewModel extends BaseViewModel {
         context: Get.context, title: 'Join Dinner', message: 'Are you sure you want to join this dinner?');
     if (result == OkCancelResult.ok) {
       Get.back();
+      final success = await _dinnerService.join(dinnerId: dinner.id);
+      if (success) {
+        Get.snackbar('Success', 'Joined the dinner!');
+      }
     }
   }
 
