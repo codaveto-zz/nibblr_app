@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as getter;
 import 'package:logger/logger.dart';
 import 'package:nibblr_app/data/response/custom_response.dart';
+import 'package:nibblr_app/nav/router.dart';
 import 'package:nibblr_app/services/log/logger_service.dart';
 import 'package:nibblr_app/services/token/token_service.dart';
 import 'package:nibblr_app/util/injection/locator.dart';
@@ -102,7 +104,6 @@ class HttpService {
   }
 
   void _initInterceptors() {
-    // LOGGER
     if (Logger.level == Level.verbose) {
       _dio.interceptors.add(PrettyDioLogger(
           requestBody: true,
@@ -113,6 +114,22 @@ class HttpService {
           compact: true,
           maxWidth: 90));
     }
+
+    _dio.interceptors.add(InterceptorsWrapper(
+        onRequest:(RequestOptions options) async {
+          return options;
+        },
+        onResponse:(Response response) async {
+          return response;
+        },
+        onError: (DioError e) async {
+          if (e.response.statusCode == 401) {
+            TokenService().deleteToken();
+            getter.Get.offAndToNamed(Routes.loginView);
+          }
+          return  e;
+        }
+    ));
   }
 
   // --------------- DISPOSE --------------- DISPOSE --------------- DISPOSE --------------- \\
