@@ -17,9 +17,7 @@ class HomeView extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
-              iconTheme: IconThemeData(
-                color: Colors.white
-              ),
+              iconTheme: IconThemeData(color: Colors.white),
               title: Text(
                 'Dinners',
                 style: TextStyle(color: Colors.white),
@@ -29,32 +27,52 @@ class HomeView extends StatelessWidget {
               data: Get.theme.copyWith(canvasColor: Colors.lightBlueAccent),
               child: Drawer(
                 elevation: 1,
-                child: ListView(children: [
-                  DrawerHeader(
-                    child: Text('Mogguh', style: Get.textTheme.headline3.copyWith(color: Colors.white, fontWeight: FontWeight.bold),),
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(Icons.food_bank, color: Colors.white,),
-                        SizedBox(width: CustomSize.medium,),
-                        Text('Diner aanmaken', style: Get.textTheme.headline6.copyWith(color: Colors.white),),
-                      ],
+                child: ListView(
+                  children: [
+                    DrawerHeader(
+                      child: Text(
+                        'Mogguh',
+                        style: Get.textTheme.headline3.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    onTap: model.makeDinner,
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(Icons.account_circle, color: Colors.white,),
-                        SizedBox(width: CustomSize.medium,),
-                        Text('Profiel', style: Get.textTheme.headline6.copyWith(color: Colors.white),),
-                      ],
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Icon(
+                            Icons.food_bank,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: CustomSize.medium,
+                          ),
+                          Text(
+                            'Diner aanmaken',
+                            style: Get.textTheme.headline6.copyWith(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      onTap: model.makeDinner,
                     ),
-                    onTap: () {
-                    },
-                  ),
-                ],),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Icon(
+                            Icons.account_circle,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: CustomSize.medium,
+                          ),
+                          Text(
+                            'Profiel',
+                            style: Get.textTheme.headline6.copyWith(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
               ),
             ),
             backgroundColor: Colors.white,
@@ -72,14 +90,24 @@ class HomeView extends StatelessWidget {
               isLoading: model.isBusy,
               child: SafeArea(
                 child: GradientBackground(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [],
-                    ),
-                  ),
+                  child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: model.dinnerTapped,
+                          child: ListTile(
+                            title: Text(
+                              'wtf',
+                              style: Get.textTheme.subtitle2,
+                            ),
+                          ),
+                        );
+                      },
+                      physics: BouncingScrollPhysics(),
+                      separatorBuilder: (context, index) {
+                        return index < model.dinners.length - 1 ? Divider() : SizedBox.shrink();
+                      },
+                      itemCount: model.dinners.length),
                 ),
               ),
             ),
