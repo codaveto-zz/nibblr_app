@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
-import 'package:nibblr_app/data/model/custom_response.dart';
+import 'package:nibblr_app/data/response/custom_response.dart';
 import 'package:nibblr_app/services/log/logger_service.dart';
 import 'package:nibblr_app/services/token/token_service.dart';
 import 'package:nibblr_app/util/injection/locator.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class HttpService {
-  static const _baseUrl = 'http://nibblr-api.test/api/';
+  static const _baseUrl = 'http://nibblr-api.herokuapp.com/api/';
   final _log = locator<LoggerService>().getLogger('HttpService');
   final _tokenService = locator<TokenService>();
 
