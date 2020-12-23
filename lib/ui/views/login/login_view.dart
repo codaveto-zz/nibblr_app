@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:nibblr_app/ui/widgets/gradient_background.dart';
@@ -14,7 +15,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.nonReactive(
+    return ViewModelBuilder<LoginViewModel>.reactive(
         onModelReady: (model) => model.initialise(),
         builder: (context, model, child) {
           return Scaffold(
@@ -24,15 +25,9 @@ class LoginView extends StatelessWidget {
               progressIndicator: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                  ),
-                  SizedBox(
-                    height: 32,
-                  ),
                   FadingText(
                     'Logging in..',
-                    style: Get.textTheme.headline6,
+                    style: Get.textTheme.headline6.copyWith(fontWeight: FontWeight.bold, color: Get.theme.primaryColor),
                   ),
                 ],
               ),
@@ -71,7 +66,7 @@ class LoginView extends StatelessWidget {
                                         color: Get.theme.primaryColor,
                                       ),
                                       labelText: 'Email'),
-                                  validator: buildEmailValidator(),
+                                  validator: MinLengthValidator(1, errorText: 'Please fill in your email.'),
                                 ),
                                 SizedBox(
                                   height: CustomSize.medium,
@@ -86,7 +81,7 @@ class LoginView extends StatelessWidget {
                                         color: Get.theme.primaryColor,
                                       ),
                                       labelText: 'Password'),
-                                  validator: buildPasswordValidator(),
+                                  validator: MinLengthValidator(1, errorText: 'Please fill in your password.'),
                                 ),
                                 SizedBox(height: CustomSize.large + CustomSize.medium),
                                 RaisedButton(

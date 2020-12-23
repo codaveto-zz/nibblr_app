@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:get/get.dart';
 import 'package:nibblr_app/data/request/create_request.dart';
 import 'package:nibblr_app/data/request/login_request.dart';
 import 'package:nibblr_app/data/response/create_response.dart';
@@ -6,7 +8,6 @@ import 'package:nibblr_app/services/http/http_service_api.dart';
 import 'package:nibblr_app/services/log/logger_service.dart';
 import 'package:nibblr_app/services/token/token_service.dart';
 import 'package:nibblr_app/util/injection/locator.dart';
-import 'package:nibblr_app/util/methods/notify.dart';
 
 class UserService {
 
@@ -15,24 +16,25 @@ class UserService {
   final _tokenService = locator<TokenService>();
   final _endpoint = '/user';
 
-  Future<bool> login({String email, String password}) async {
+  Future<bool> login({@required String email, @required String password}) async {
     bool success = false;
     final CustomResponse response = await _httpService.post(path: _endpoint + '/loginrequest', requestBody: LoginRequest(email, password).toJson());
     if (response.statusCode == 200) {
+      await _tokenService.saveToken(CreateResponse.fromJson(response.object).accessToken);
       success = true;
     }
-    notifyError(response);
+    Get.put(response, tag: 'error');
     return success;
   }
 
-  Future<bool> create({String name, String email, String password}) async {
+  Future<bool> create({@required String name, @required String email, @required String password}) async {
     bool success = false;
     final CustomResponse response = await _httpService.post(path: _endpoint+ '/createrequest', requestBody: CreateRequest(name, email, password).toJson());
     if (response.statusCode == 201) {
       await _tokenService.saveToken(CreateResponse.fromJson(response.object).accessToken);
       success = true;
     }
-    notifyError(response);
+    Get.put(response, tag: 'error');
     return success;
   }
 }

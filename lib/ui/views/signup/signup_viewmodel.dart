@@ -4,6 +4,7 @@ import 'package:nibblr_app/nav/router.dart';
 import 'package:nibblr_app/services/log/logger_service.dart';
 import 'package:nibblr_app/services/login/user_service.dart';
 import 'package:nibblr_app/util/injection/locator.dart';
+import 'package:nibblr_app/util/methods/notify.dart';
 import 'package:stacked/stacked.dart';
 
 class SignupViewModel extends BaseViewModel {
@@ -33,9 +34,11 @@ class SignupViewModel extends BaseViewModel {
     if (_formKey.currentState.validate()) {
       final success = await runBusyFuture(UserService()
           .create(name: nameController.text, email: emailController.text, password: passwordController.text));
-    await runBusyFuture(Future.delayed(Duration(seconds: 2)));
+      await runBusyFuture(Future.delayed(Duration(seconds: 2)));
       if (success) {
         Get.toNamed(Routes.homeView);
+      } else {
+        notifyError(Get.find(tag: 'error'));
       }
     }
   }

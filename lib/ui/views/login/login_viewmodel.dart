@@ -4,16 +4,16 @@ import 'package:nibblr_app/nav/router.dart';
 import 'package:nibblr_app/services/log/logger_service.dart';
 import 'package:nibblr_app/services/login/user_service.dart';
 import 'package:nibblr_app/util/injection/locator.dart';
+import 'package:nibblr_app/util/methods/notify.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginViewModel extends BaseViewModel {
   final _log = locator<LoggerService>().getLogger('LoginViewModel');
 
-  final GlobalKey<FormState> _formKey = GlobalKey();
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final nameController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   // --------------- INIT --------------- INIT --------------- INIT --------------- \\
 
@@ -29,13 +29,21 @@ class LoginViewModel extends BaseViewModel {
 
   // --------------- USER LOGIC --------------- USER LOGIC --------------- USER LOGIC --------------- \\
 
-  void loginUser({String email, String password}) {
+  Future<void> loginUser({String email, String password}) async {
+      if (_formKey.currentState.validate()) {
+        final success = await runBusyFuture(UserService()
+                  .login(email: emailController.text, password: passwordController.text));
+        await runBusyFuture(Future.delayed(Duration(seconds: 2)));
+        if (success) {
+          Get.toNamed(Routes.homeView);
+        } else {
+          notifyError(Get.find(tag: 'error'));
+        }
+      }
   }
 
-// --------------- GET & SET --------------- GET & SET --------------- GET & SET --------------- \\
-
-  GlobalKey<FormState> get formKey => _formKey;
-
+  GlobalKey<FormState> get formKey =>
+      _formKey; // --------------- GET & SET --------------- GET & SET --------------- GET & SET --------------- \\
 
   void goToSignup() {
     Get.offAndToNamed(Routes.signupView);
