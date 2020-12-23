@@ -36,4 +36,5 @@ class UserService {
     Get.put(response, tag: 'error');
     return success;
   }
+
 }

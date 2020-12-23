@@ -12,12 +12,22 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.nonReactive(
+    return ViewModelBuilder<HomeViewModel>.reactive(
         onModelReady: (model) => model.initialise(),
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
               iconTheme: IconThemeData(color: Colors.white),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: model.refresh,
+                ),
+                IconButton(
+                  icon: Icon(Icons.logout),
+                  onPressed: model.logout,
+                ),
+              ],
               title: Text(
                 'Dinners',
                 style: TextStyle(color: Colors.white),
@@ -46,7 +56,7 @@ class HomeView extends StatelessWidget {
                             width: CustomSize.medium,
                           ),
                           Text(
-                            'Diner aanmaken',
+                            'Create Dinner',
                             style: Get.textTheme.headline6.copyWith(color: Colors.white),
                           ),
                         ],
@@ -64,7 +74,7 @@ class HomeView extends StatelessWidget {
                             width: CustomSize.medium,
                           ),
                           Text(
-                            'Profiel',
+                            'Profile',
                             style: Get.textTheme.headline6.copyWith(color: Colors.white),
                           ),
                         ],
@@ -105,9 +115,9 @@ class HomeView extends StatelessWidget {
                       },
                       physics: BouncingScrollPhysics(),
                       separatorBuilder: (context, index) {
-                        return index < model.dinners.length - 1 ? Divider() : SizedBox.shrink();
+                        return index < model.dinners?.length ?? 0 - 1 ? Divider() : SizedBox.shrink();
                       },
-                      itemCount: model.dinners.length),
+                      itemCount: model.dinners?.length ?? 0),
                 ),
               ),
             ),
