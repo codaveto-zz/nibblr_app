@@ -33,7 +33,7 @@ class StartupViewModel extends BaseViewModel {
   // --------------- STARTUP LOGIC --------------- STARTUP LOGIC --------------- STARTUP LOGIC --------------- \\
 
   Future _handleStartupLogic() async {
-    if (!_userIsLoggedIn) {
+    if (_userIsLoggedIn) {
       await _goToHomeView();
     } else {
       _goToLoginView();

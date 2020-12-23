@@ -15,4 +15,7 @@ final _log = locator<LoggerService>().getLogger('HomeViewModel');
     super.dispose();
   }
 
+
+  void makeDinner() {
+  }
 }
