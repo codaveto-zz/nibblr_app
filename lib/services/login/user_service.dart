@@ -31,7 +31,6 @@ class UserService {
     bool success = false;
     final CustomResponse response = await _httpService.post(path: _endpoint+ '/createrequest', requestBody: CreateRequest(name, email, password).toJson());
     if (response.statusCode == 201) {
-      await _tokenService.saveToken(CreateResponse.fromJson(response.object).accessToken);
       success = true;
     }
     Get.put(response, tag: 'error');

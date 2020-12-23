@@ -1,14 +1,21 @@
+import 'package:nibblr_app/data/model/dinner.dart';
+import 'package:nibblr_app/services/dinner/dinner_service.dart';
 import 'package:nibblr_app/services/log/logger_service.dart';
 import 'package:nibblr_app/util/injection/locator.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends BaseViewModel {
-final _log = locator<LoggerService>().getLogger('HomeViewModel');
+  final _log = locator<LoggerService>().getLogger('HomeViewModel');
+  final _dinnerService = DinnerService();
+
+  List<Dinner> _dinners = [];
 
   // --------------- INIT --------------- INIT --------------- INIT --------------- \\
 
   void initialise() async {
     _log.i('I am initialized');
+    _dinners = await runBusyFuture(_dinnerService.getUpcomingDinners());
+    notifyListeners();
   }
 
   @override
@@ -17,16 +24,15 @@ final _log = locator<LoggerService>().getLogger('HomeViewModel');
     super.dispose();
   }
 
-  // --------------- DINNNERS --------------- DINNNERS --------------- DINNNERS --------------- \\
+  // --------------- DINNERS --------------- DINNERS --------------- DINNERS --------------- \\
 
-  void makeDinner() {
-  }
+  void makeDinner() {}
 
+  void dinnerTapped() {}
 
-  void dinnerTapped() {
-  }
+  Future<void> initDinners() async {}
+
   // --------------- GET & SET --------------- GET & SET --------------- GET & SET --------------- \\
 
-
-  List<int> get dinners => [1, 2, 3, 4,5 ,6 ,7 ,8 , 9 ,1];
+  List<Dinner> get dinners => _dinners;
 }

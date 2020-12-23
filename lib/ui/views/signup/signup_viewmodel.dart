@@ -31,15 +31,20 @@ class SignupViewModel extends BaseViewModel {
   // --------------- USER LOGIC --------------- USER LOGIC --------------- USER LOGIC --------------- \\
 
   Future<void> createUser() async {
+    final userService = UserService();
     if (_formKey.currentState.validate()) {
-      final success = await runBusyFuture(UserService()
-          .create(name: nameController.text, email: emailController.text, password: passwordController.text));
+      final createUserSuccess = await runBusyFuture(userService.create(
+          name: nameController.text, email: emailController.text, password: passwordController.text));
       await runBusyFuture(Future.delayed(Duration(seconds: 2)));
-      if (success) {
-        Get.toNamed(Routes.homeView);
-      } else {
-        notifyError(Get.find(tag: 'error'));
+      if (createUserSuccess) {
+        final loginSuccess =
+            await runBusyFuture(userService.login(email: emailController.text, password: passwordController.text));
+        if (loginSuccess) {
+          Get.toNamed(Routes.homeView);
+          return;
+        }
       }
+      notifyError(Get.find(tag: 'error'));
     }
   }
 
