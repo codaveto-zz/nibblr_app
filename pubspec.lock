@@ -752,6 +752,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.7"
+  stacked_services:
+    dependency: "direct main"
+    description:
+      name: stacked_services
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.0+1"
   stream_channel:
     dependency: transitive
     description:

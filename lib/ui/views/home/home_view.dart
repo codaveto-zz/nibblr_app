@@ -109,7 +109,9 @@ class HomeView extends StatelessWidget {
                               final dinner = model.dinners[index];
                               return GestureDetector(
                                 behavior: HitTestBehavior.translucent,
-                                onTap: model.dinnerTapped,
+                                onTap: () {
+                                  model.dinnerTapped(dinner);
+                                },
                                 child: ListTile(
                                   title: Text(
                                     dinner.title,

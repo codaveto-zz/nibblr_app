@@ -31,6 +31,7 @@ dependencies:
   form_field_validator: ^1.0.1
   shared_preferences: ^0.5.12+4
   pretty_dio_logger: ^1.1.1
+  stacked_services: ^0.6.0
   adaptive_dialog: ^0.9.3
   enum_to_string: ^1.0.14
   injectable: ^1.0.5
