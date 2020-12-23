@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nibblr_app/util/constants/sizes.dart';
 
 ThemeData buildThemeData(BuildContext context) {
-  final primaryColor = _generateMaterialColor(Colors.lightBlueAccent);
+  final primaryColor = _generateMaterialColor(Colors.red);
   return ThemeData(
       primarySwatch: primaryColor,
       cursorColor: primaryColor,
@@ -22,7 +22,7 @@ ThemeData buildThemeData(BuildContext context) {
         labelStyle:
             GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.bold, letterSpacing: 1.25, color: primaryColor),
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.lightBlueAccent, width: 0.5),
+          borderSide: BorderSide(color: Colors.redAccent, width: 0.5),
         ),
       ),
       textTheme: TextTheme(

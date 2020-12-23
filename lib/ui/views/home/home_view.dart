@@ -35,7 +35,7 @@ class HomeView extends StatelessWidget {
               ),
             ),
             drawer: Theme(
-              data: Get.theme.copyWith(canvasColor: Colors.lightBlueAccent),
+              data: Get.theme.copyWith(canvasColor: Get.theme.primaryColor.withBlue(40)),
               child: Drawer(
                 elevation: 1,
                 child: ListView(

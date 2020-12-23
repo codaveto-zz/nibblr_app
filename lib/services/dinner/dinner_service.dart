@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:nibblr_app/data/model/dinner.dart';
+import 'package:nibblr_app/data/model/user.dart';
 import 'package:nibblr_app/data/request/dinner_request.dart';
 import 'package:nibblr_app/data/response/custom_response.dart';
 import 'package:nibblr_app/services/http/http_service_api.dart';
@@ -13,17 +14,13 @@ class DinnerService {
   final _httpService = locator<HttpService>();
   final _endpoint = '/dinner';
 
-  Future<List<Dinner>> getUpcomingDinners() async {
+  Future<List<Dinner>> get() async {
     List<Dinner> dinnerList = [];
     final CustomResponse response = await _httpService.get(path: _endpoint);
     if (response.statusCode == 200) {
-        try {
           response.list.forEach((element) {dinnerList.add(Dinner.fromJson(element));});
-        } catch (e) {
-          print(e);
-        }
     }
-    dinnerList.sort((a, b) => a.endTime.compareTo(b.startTime));
+    dinnerList.sort((a, b) => a.startTime.compareTo(b.startTime));
     return dinnerList;
   }
 
@@ -40,6 +37,7 @@ class DinnerService {
     Get.put(response, tag: 'error');
     return success;
   }
+
   Future<bool> join({int dinnerId}) async {
     bool success = false;
     final CustomResponse response = await _httpService.post(
@@ -51,4 +49,14 @@ class DinnerService {
     return success;
   }
 
+  Future<List<User>> getGuests({int dinnerId}) async {
+    List<User> userList = [];
+    final CustomResponse response = await _httpService.get(
+        path: _endpoint + '/$dinnerId' + '/user');
+    if (response.statusCode == 200) {
+        response.list.forEach((element) {userList.add(User.fromJson(element));});
+    }
+    userList.sort((a, b) => a.name.compareTo(b.name));
+    return userList;
+  }
 }
