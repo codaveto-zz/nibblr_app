@@ -1,6 +1,8 @@
 // import 'package:auto_route/auto_route.dart';
 // import 'package:auto_route/auto_route_annotations.dart';
 // import 'package:nibblr_app/nav/transitions.dart';
+// import 'package:nibblr_app/ui/views/add_dinner/add_dinner_view.dart';
+// import 'package:nibblr_app/ui/views/dinner/add_dinner_view.dart';
 // import 'package:nibblr_app/ui/views/home/home_view.dart';
 // import 'package:nibblr_app/ui/views/login/login_view.dart';
 // import 'package:nibblr_app/ui/views/signup/signup_view.dart';
@@ -10,10 +12,11 @@
 // @CustomAutoRouter(
 //   routes: <AutoRoute>[
 //     CustomRoute(
-//         page: LoginView,
-//         name: 'loginView',
-//         transitionsBuilder: TransitionsBuilders.fadeIn,
-//         durationInMilliseconds: CustomSize.defaultAnimationDuration),
+//       page: StartupView,
+//       name: 'startupView',
+//       transitionsBuilder: TransitionMaster.sharedAxisTransition,
+//       durationInMilliseconds: CustomSize.defaultAnimationDuration,
+//     ),
 //     CustomRoute(
 //       page: HomeView,
 //       name: 'homeView',
@@ -21,15 +24,20 @@
 //       durationInMilliseconds: CustomSize.defaultAnimationDuration,
 //     ),
 //     CustomRoute(
-//       page: StartupView,
-//       name: 'startupView',
-//       transitionsBuilder: TransitionMaster.sharedAxisTransition,
-//       durationInMilliseconds: CustomSize.defaultAnimationDuration,
-//     ),
+//         page: LoginView,
+//         name: 'loginView',
+//         transitionsBuilder: TransitionsBuilders.fadeIn,
+//         durationInMilliseconds: CustomSize.defaultAnimationDuration),
 //     CustomRoute(
 //       page: SignupView,
 //       name: 'signupView',
 //       transitionsBuilder: TransitionsBuilders.fadeIn,
+//       durationInMilliseconds: CustomSize.defaultAnimationDuration,
+//     ),
+//     CustomRoute(
+//       page: AddDinnerView,
+//       name: 'addDinnerView',
+//       transitionsBuilder: TransitionMaster.sharedAxisTransition,
 //       durationInMilliseconds: CustomSize.defaultAnimationDuration,
 //     ),
 //   ],

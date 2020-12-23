@@ -12,9 +12,9 @@ class SignupViewModel extends BaseViewModel {
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
 
   // --------------- INIT --------------- INIT --------------- INIT --------------- \\
 
@@ -34,11 +34,11 @@ class SignupViewModel extends BaseViewModel {
     final userService = UserService();
     if (_formKey.currentState.validate()) {
       final createUserSuccess = await runBusyFuture(userService.create(
-          name: nameController.text, email: emailController.text, password: passwordController.text));
+          name: _nameController.text, email: _emailController.text, password: _passwordController.text));
       await runBusyFuture(Future.delayed(Duration(seconds: 2)));
       if (createUserSuccess) {
         final loginSuccess =
-            await runBusyFuture(userService.login(email: emailController.text, password: passwordController.text));
+            await runBusyFuture(userService.login(email: _emailController.text, password: _passwordController.text));
         if (loginSuccess) {
           Get.toNamed(Routes.homeView);
           return;
@@ -48,11 +48,19 @@ class SignupViewModel extends BaseViewModel {
     }
   }
 
-// --------------- GET & SET --------------- GET & SET --------------- GET & SET --------------- \\
-
-  GlobalKey<FormState> get formKey => _formKey;
+  // --------------- NAV --------------- NAV --------------- NAV --------------- \\
 
   void goToSignup() {
     Get.offAndToNamed(Routes.loginView);
   }
+
+// --------------- GET & SET --------------- GET & SET --------------- GET & SET --------------- \\
+
+  GlobalKey<FormState> get formKey => _formKey;
+
+  get nameController => _nameController;
+
+  get passwordController => _passwordController;
+
+  get emailController => _emailController;
 }

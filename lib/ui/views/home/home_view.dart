@@ -29,7 +29,7 @@ class HomeView extends StatelessWidget {
                 ),
               ],
               title: Text(
-                'Dinners',
+                'Home of the Dinners',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -61,7 +61,7 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      onTap: model.makeDinner,
+                      onTap: model.goToDinnerView,
                     ),
                     ListTile(
                       title: Row(
@@ -100,24 +100,33 @@ class HomeView extends StatelessWidget {
               isLoading: model.isBusy,
               child: SafeArea(
                 child: GradientBackground(
-                  child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: model.dinnerTapped,
-                          child: ListTile(
-                            title: Text(
-                              'wtf',
-                              style: Get.textTheme.subtitle2,
-                            ),
+                  child: ((model.dinners?.length ?? 0) > 0)
+                      ? ListView.separated(
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: model.dinnerTapped,
+                              child: ListTile(
+                                title: Text(
+                                  'wtf',
+                                  style: Get.textTheme.subtitle2,
+                                ),
+                              ),
+                            );
+                          },
+                          physics: BouncingScrollPhysics(),
+                          separatorBuilder: (context, index) {
+                            return index < model.dinners?.length ?? 0 - 1 ? Divider() : SizedBox.shrink();
+                          },
+                          itemCount: model.dinners?.length ?? 0)
+                      : Center(
+                          child: Text(
+                            'A dinner a day,\n'
+                                'keeps the hunger away.',
+                            textAlign: TextAlign.center,
+                            style: Get.textTheme.subtitle1.copyWith(fontStyle: FontStyle.italic),
                           ),
-                        );
-                      },
-                      physics: BouncingScrollPhysics(),
-                      separatorBuilder: (context, index) {
-                        return index < model.dinners?.length ?? 0 - 1 ? Divider() : SizedBox.shrink();
-                      },
-                      itemCount: model.dinners?.length ?? 0),
+                        ),
                 ),
               ),
             ),

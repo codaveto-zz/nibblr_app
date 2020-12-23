@@ -29,7 +29,9 @@ class HomeViewModel extends BaseViewModel {
 
   // --------------- DINNERS --------------- DINNERS --------------- DINNERS --------------- \\
 
-  void makeDinner() {}
+  void goToDinnerView() {
+    Get.offAndToNamed(Routes.addDinnerView);
+  }
 
   void dinnerTapped() {}
 
@@ -43,6 +45,9 @@ class HomeViewModel extends BaseViewModel {
 
   Future<void> refresh() async {
     await _initDinners();
+    if (_dinners?.isEmpty ?? true) {
+      Get.snackbar('Oops', 'No dinners found, try again later.', snackPosition: SnackPosition.TOP);
+    }
   }
 
   Future<void> logout() async {

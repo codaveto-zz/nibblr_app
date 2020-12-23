@@ -19,12 +19,8 @@ ThemeData buildThemeData(BuildContext context) {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        labelStyle: GoogleFonts.poppins(
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1.25,
-          color: primaryColor
-        ),
+        labelStyle:
+            GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.bold, letterSpacing: 1.25, color: primaryColor),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.lightBlueAccent, width: 0.5),
         ),

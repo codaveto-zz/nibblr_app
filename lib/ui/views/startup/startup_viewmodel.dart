@@ -50,6 +50,7 @@ class StartupViewModel extends BaseViewModel {
 
   void _goToLoginView() {
     locator<HttpService>().resetService();
+    TokenService().deleteToken();
     Get.offAndToNamed(Routes.loginView);
   }
 

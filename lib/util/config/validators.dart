@@ -13,6 +13,19 @@ MultiValidator buildLongTextValidator() {
   ]);
 }
 
+MultiValidator buildMinTextValidator(String message) {
+  return MultiValidator([
+    MinLengthValidator(1, errorText: message),
+  ]);
+}
+
+MultiValidator buildLongerTextValidator() {
+  return MultiValidator([
+    PatternValidator('[a-zA-Z][a-zA-Z ]+', errorText: 'Please enter a valid name'),
+    MaxLengthValidator(30, errorText: 'Must be shorter than 250 characters'),
+  ]);
+}
+
 MultiValidator buildPasswordValidator() {
   return MultiValidator([
     RequiredValidator(errorText: 'Please enter a valid password'),

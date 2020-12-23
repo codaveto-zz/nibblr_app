@@ -5,6 +5,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:nibblr_app/ui/widgets/gradient_background.dart';
 import 'package:nibblr_app/util/config/validators.dart';
 import 'package:nibblr_app/util/constants/sizes.dart';
+import 'package:nibblr_app/util/methods/input.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:stacked/stacked.dart';
 
@@ -58,7 +59,7 @@ class LoginView extends StatelessWidget {
                               children: <Widget>[
                                 TextFormField
                                   (
-                                  style: _inputStyle(),
+                                  style: inputStyle(),
                                   controller: model.emailController,
                                   decoration: InputDecoration(
                                       suffixIcon: Icon(
@@ -72,7 +73,7 @@ class LoginView extends StatelessWidget {
                                   height: CustomSize.medium,
                                 ),
                                 TextFormField(
-                                  style: _inputStyle(),
+                                  style: inputStyle(),
                                   controller: model.passwordController,
                                   obscureText: true,
                                   decoration: InputDecoration(
@@ -114,6 +115,4 @@ class LoginView extends StatelessWidget {
         },
         viewModelBuilder: () => LoginViewModel());
   }
-
-  TextStyle _inputStyle() => Get.textTheme.subtitle1.copyWith(color: Get.theme.primaryColor);
 }

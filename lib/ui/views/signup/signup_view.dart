@@ -4,6 +4,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:nibblr_app/ui/widgets/gradient_background.dart';
 import 'package:nibblr_app/util/config/validators.dart';
 import 'package:nibblr_app/util/constants/sizes.dart';
+import 'package:nibblr_app/util/methods/input.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:stacked/stacked.dart';
 
@@ -54,7 +55,7 @@ class SignupView extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               children: <Widget>[
                                 TextFormField(
-                                  style: _inputStyle(),
+                                  style: inputStyle(),
                                   controller: model.nameController,
                                   decoration: InputDecoration(
                                       suffixIcon: Icon(
@@ -68,7 +69,7 @@ class SignupView extends StatelessWidget {
                                   height: CustomSize.medium,
                                 ),
                                 TextFormField(
-                                  style: _inputStyle(),
+                                  style: inputStyle(),
                                   controller: model.emailController,
                                   decoration: InputDecoration(
                                       suffixIcon: Icon(
@@ -82,7 +83,7 @@ class SignupView extends StatelessWidget {
                                   height: CustomSize.medium,
                                 ),
                                 TextFormField(
-                                  style: _inputStyle(),
+                                  style: inputStyle(),
                                   controller: model.passwordController,
                                   obscureText: true,
                                   decoration: InputDecoration(
@@ -123,6 +124,4 @@ class SignupView extends StatelessWidget {
         },
         viewModelBuilder: () => SignupViewModel());
   }
-
-  TextStyle _inputStyle() => Get.textTheme.subtitle1.copyWith(color: Get.theme.primaryColor);
 }
