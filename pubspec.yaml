@@ -31,6 +31,8 @@ dependencies:
   form_field_validator: ^1.0.1
   shared_preferences: ^0.5.12+4
   pretty_dio_logger: ^1.1.1
+  stacked_services: ^0.6.0
+  adaptive_dialog: ^0.9.3
   enum_to_string: ^1.0.14
   injectable: ^1.0.5
   provider: ^4.3.2+3
@@ -41,6 +43,7 @@ dependencies:
   get: ^3.24.0
 
   # UI
+  flutter_statusbarcolor: ^0.2.3
   smooth_page_indicator: ^0.2.0
   progress_indicators: ^0.1.5
   page_transition: ^1.1.7+3
@@ -75,6 +78,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
