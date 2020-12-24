@@ -18,7 +18,9 @@ class DinnerService {
     List<Dinner> dinnerList = [];
     final CustomResponse response = await _httpService.get(path: _endpoint);
     if (response.statusCode == 200) {
-          response.list.forEach((element) {dinnerList.add(Dinner.fromJson(element));});
+      response.list.forEach((element) {
+        dinnerList.add(Dinner.fromJson(element));
+      });
     }
     dinnerList.sort((a, b) => a.startTime.compareTo(b.startTime));
     return dinnerList;
@@ -40,21 +42,22 @@ class DinnerService {
 
   Future<bool> join({int dinnerId}) async {
     bool success = false;
-    final CustomResponse response = await _httpService.post(
-        path: _endpoint + '/$dinnerId' + '/joinrequest');
+    final CustomResponse response = await _httpService.post(path: _endpoint + '/$dinnerId' + '/joinrequest');
     if (response.statusCode == 200) {
       success = true;
+    } else {
+      notifyError(response);
     }
-    notifyError(response);
     return success;
   }
 
   Future<List<User>> getGuests({int dinnerId}) async {
     List<User> userList = [];
-    final CustomResponse response = await _httpService.get(
-        path: _endpoint + '/$dinnerId' + '/user');
+    final CustomResponse response = await _httpService.get(path: _endpoint + '/$dinnerId' + '/user');
     if (response.statusCode == 200) {
-        response.list.forEach((element) {userList.add(User.fromJson(element));});
+      response.list.forEach((element) {
+        userList.add(User.fromJson(element));
+      });
     }
     userList.sort((a, b) => a.name.compareTo(b.name));
     return userList;
