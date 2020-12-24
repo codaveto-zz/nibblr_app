@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nibblr_app/data/model/user.dart';
-import 'package:nibblr_app/data/request/update_request.dart';
 import 'package:nibblr_app/nav/router.dart';
 import 'package:nibblr_app/services/log/logger_service.dart';
 import 'package:nibblr_app/services/login/user_service.dart';
@@ -41,7 +40,8 @@ class ProfileViewModel extends BaseViewModel {
 
   Future<void> update() async {
     if (user != null && _formKey.currentState.validate()) {
-      bool success = await runBusyFuture(_userService.update(id: user.id, name: _nameController.text, email: _emailController.text));
+      bool success = await runBusyFuture(
+          _userService.update(id: user.id, name: _nameController.text, email: _emailController.text));
       await runBusyFuture(Future.delayed(Duration(seconds: 2)));
       if (success) {
         Get.snackbar('Success', 'Your profile is updated.');
@@ -52,9 +52,11 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   // --------------- NAV --------------- NAV --------------- NAV --------------- \\
+
   void goBack() {
     Get.offNamed(Routes.homeView);
   }
+
 // --------------- GET & SET --------------- GET & SET --------------- GET & SET --------------- \\
 
   GlobalKey<FormState> get formKey => _formKey;
@@ -62,5 +64,4 @@ class ProfileViewModel extends BaseViewModel {
   get nameController => _nameController;
 
   get emailController => _emailController;
-
 }

@@ -99,8 +99,8 @@ class HomeView extends StatelessWidget {
               ),
               opacity: 1,
               isLoading: model.isBusy,
-              child: SafeArea(
-                child: GradientBackground(
+              child: GradientBackground(
+                child: SafeArea(
                   child: (model.dinners != null && model.dinners.length > 0)
                       ? Padding(
                         padding: const EdgeInsets.only(top: CustomSize.medium, left: CustomSize.medium, right: CustomSize.medium),
@@ -138,7 +138,7 @@ class HomeView extends StatelessWidget {
                       )
                       : Center(
                           child: Text(
-                            'A dinner a day,\n'
+                            'A Nibblr a day,\n'
                                 'keeps the hunger away.',
                             textAlign: TextAlign.center,
                             style: Get.textTheme.subtitle1.copyWith(fontStyle: FontStyle.italic),

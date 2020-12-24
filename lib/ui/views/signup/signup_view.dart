@@ -17,6 +17,7 @@ class SignupView extends StatelessWidget {
         onModelReady: (model) => model.initialise(),
         builder: (context, model, child) {
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.white,
             body: LoadingOverlay(
               color: Colors.white,
@@ -31,8 +32,8 @@ class SignupView extends StatelessWidget {
               ),
               opacity: 1,
               isLoading: model.isBusy,
-              child: SafeArea(
-                child: GradientBackground(
+              child: GradientBackground(
+                child: SafeArea(
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,

@@ -20,6 +20,7 @@ class AddDinnerView extends StatelessWidget {
         onModelReady: (model) => model.initialise(),
         builder: (context, model, child) {
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.white),
@@ -45,8 +46,8 @@ class AddDinnerView extends StatelessWidget {
               ),
               opacity: 1,
               isLoading: model.isBusy,
-              child: SafeArea(
-                child: GradientBackground(
+              child: GradientBackground(
+                child: SafeArea(
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
