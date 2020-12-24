@@ -40,11 +40,14 @@ class ProfileViewModel extends BaseViewModel {
 // --------------- USER LOGIC --------------- USER LOGIC --------------- USER LOGIC --------------- \\
 
   Future<void> update() async {
-    if (user != null) {
+    if (user != null && _formKey.currentState.validate()) {
       bool success = await runBusyFuture(_userService.update(id: user.id, name: _nameController.text, email: _emailController.text));
+      await runBusyFuture(Future.delayed(Duration(seconds: 2)));
       if (success) {
         Get.snackbar('Success', 'Your profile is updated.');
       }
+    } else {
+      Get.snackbar('Oops', 'Something went wrong.');
     }
   }
 
