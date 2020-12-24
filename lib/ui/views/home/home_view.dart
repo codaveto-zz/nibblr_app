@@ -80,7 +80,7 @@ class HomeView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      onTap: () {},
+                      onTap: model.goToProfileView,
                     ),
                   ],
                 ),
@@ -103,7 +103,7 @@ class HomeView extends StatelessWidget {
                 child: GradientBackground(
                   child: (model.dinners != null && model.dinners.length > 0)
                       ? Padding(
-                        padding: const EdgeInsets.only(top: CustomSize.medium),
+                        padding: const EdgeInsets.only(top: CustomSize.medium, left: CustomSize.medium, right: CustomSize.medium),
                         child: ListView.separated(
                             itemBuilder: (context, index) {
                               final dinner = model.dinners[index];

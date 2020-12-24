@@ -34,10 +34,6 @@ class HomeViewModel extends BaseViewModel {
 
   // --------------- DINNERS --------------- DINNERS --------------- DINNERS --------------- \\
 
-  void goToDinnerView() {
-    Get.offNamed(Routes.addDinnerView);
-  }
-
   void dinnerTapped(Dinner dinner) {
     Get.bottomSheet(Container(
       decoration: BoxDecoration(
@@ -58,17 +54,7 @@ class HomeViewModel extends BaseViewModel {
                       size: CustomSize.large,
                     ),
                     onPressed: () async {
-                      List<User> users = await _dinnerService.getGuests(dinnerId: dinner.id);
-                      StringBuffer _buffer = StringBuffer();
-                      users.forEach((element) {
-                        _buffer.write('- ' + element.name + '\n');
-                      });
-                      showOkAlertDialog(
-                          context: Get.overlayContext,
-                          title: 'Guests',
-                          message: users != null && users.length > 0
-                              ? 'The following people have joined this dinner, what a joy.\n\n' + _buffer.toString()
-                              : 'No people have joined this dinner yet, be the first!');
+                      await _showPeoplePopup(dinner);
                     }),
                 Text(
                   dinner.title,
@@ -119,6 +105,20 @@ class HomeViewModel extends BaseViewModel {
     ));
   }
 
+  Future _showPeoplePopup(Dinner dinner) async {
+    List<User> users = await _dinnerService.getGuests(dinnerId: dinner.id);
+    StringBuffer _buffer = StringBuffer();
+    users.forEach((element) {
+      _buffer.write('- ' + element.name + '\n');
+    });
+    showOkAlertDialog(
+        context: Get.overlayContext,
+        title: 'Guests',
+        message: users != null && users.length > 0
+            ? 'The following people have joined this dinner, what a joy.\n\n' + _buffer.toString()
+            : 'No people have joined this dinner yet, be the first!');
+  }
+
   _joinDinner(Dinner dinner) async {
     final result = await showOkCancelAlertDialog(
         context: Get.context, title: 'Join Dinner', message: 'Are you sure you want to join this dinner?');
@@ -160,7 +160,19 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
+  // --------------- NAV --------------- NAV --------------- NAV --------------- \\
+
+  void goToProfileView() {
+    Get.offNamed(Routes.profileView);
+  }
+
+  void goToDinnerView() {
+    Get.offNamed(Routes.addDinnerView);
+  }
+
   // --------------- GET & SET --------------- GET & SET --------------- GET & SET --------------- \\
 
   List<Dinner> get dinners => _dinners;
+
+
 }

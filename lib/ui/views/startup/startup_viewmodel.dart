@@ -51,12 +51,12 @@ class StartupViewModel extends BaseViewModel {
   void _goToLoginView() {
     locator<HttpService>().resetService();
     TokenService().deleteToken();
-    Get.offAndToNamed(Routes.loginView);
+    Get.offNamed(Routes.loginView);
   }
 
   Future _goToHomeView() async {
     await locator<HttpService>().init();
-    Get.offAndToNamed(Routes.homeView);
+    Get.offNamed(Routes.homeView);
   }
 
 }

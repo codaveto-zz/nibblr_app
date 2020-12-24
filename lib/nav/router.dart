@@ -13,6 +13,7 @@ import 'package:nibblr_app/nav/transitions.dart';
 import '../ui/views/add_dinner/add_dinner_view.dart';
 import '../ui/views/home/home_view.dart';
 import '../ui/views/login/login_view.dart';
+import '../ui/views/profile/profile_view.dart';
 import '../ui/views/signup/signup_view.dart';
 import '../ui/views/startup/startup_view.dart';
 
@@ -22,12 +23,14 @@ class Routes {
   static const String loginView = '/login-view';
   static const String signupView = '/signup-view';
   static const String addDinnerView = '/add-dinner-view';
+  static const String profileView = '/profile-view';
   static const all = <String>{
     startupView,
     homeView,
     loginView,
     signupView,
     addDinnerView,
+    profileView,
   };
 }
 
@@ -40,6 +43,7 @@ class Router extends RouterBase {
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.signupView, page: SignupView),
     RouteDef(Routes.addDinnerView, page: AddDinnerView),
+    RouteDef(Routes.profileView, page: ProfileView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -82,6 +86,15 @@ class Router extends RouterBase {
       return PageRouteBuilder<dynamic>(
         pageBuilder: (context, animation, secondaryAnimation) =>
         const AddDinnerView(),
+        settings: data,
+        transitionsBuilder: TransitionMaster.sharedAxisTransition,
+        transitionDuration: const Duration(milliseconds: 400),
+      );
+    },
+    ProfileView: (data) {
+      return PageRouteBuilder<dynamic>(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+        const ProfileView(),
         settings: data,
         transitionsBuilder: TransitionMaster.sharedAxisTransition,
         transitionDuration: const Duration(milliseconds: 400),

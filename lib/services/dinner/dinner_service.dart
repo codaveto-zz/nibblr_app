@@ -58,6 +58,8 @@ class DinnerService {
       response.list.forEach((element) {
         userList.add(User.fromJson(element));
       });
+    } else {
+      notifyError(response);
     }
     userList.sort((a, b) => a.name.compareTo(b.name));
     return userList;
